@@ -12,6 +12,7 @@ import Box from './components/box/Box';
 
 import { AxiosTodo } from './services/axios.services';
 import MainPage from './pages/MainPage';
+import Headers from './components/headers/Headers';
 function App() {
 
   // const [dataBox, setDataBox] = useState([1, 2, 3])
@@ -30,16 +31,16 @@ function App() {
         body: null,
         idParams: 1
       };
-  
+
       const axiosGet = async (dataForAxios) => {
         const todo = await AxiosTodo(dataForAxios);
         let { data } = todo;
-        setDatas(data);
+        setDatas(data[0]);
       };
-  
+
       axiosGet(getData);
     }
-  }, [datas]);
+  }, []);
   console.log("🚀 ~ file: App.jsx:43 ~ App ~ datas:", datas)
 
 
@@ -59,7 +60,11 @@ function App() {
 
     <div>
       <div className="container">
-
+        <hr />
+        <Headers
+          data={datas}
+        />
+        <hr />
         <MainPage
           todo={datas}
 
