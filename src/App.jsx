@@ -20,28 +20,34 @@ function App() {
   // const [countGame, setCountGame] = useState(0);
 
 
-  const [data, setData] = useState([])
+  const [datas, setDatas] = useState([]);
 
-
-  useLayoutEffect(() => {
-    const getData = {
-      url: `http://localhost:3000/player/player/`,
-      method: 'get',
-      body: null,
-      idParams: 1
-
+  useEffect(() => {
+    if (!datas.length) {
+      const getData = {
+        url: `http://localhost:3000/player/player/`,
+        method: 'get',
+        body: null,
+        idParams: 1
+      };
+  
+      const axiosGet = async (dataForAxios) => {
+        const todo = await AxiosTodo(dataForAxios);
+        let { data } = todo;
+        setDatas(data);
+      };
+  
+      axiosGet(getData);
     }
-    const axiosGet = async () => {
-      const todo = await AxiosTodo(getData)
-      const { data } = todo
-      setData(data)
-
-    }
-    axiosGet()
-  }, [])
+  }, [datas]);
+  console.log("🚀 ~ file: App.jsx:43 ~ App ~ datas:", datas)
 
 
-  console.log("🚀 ~ file: App.jsx:21 ~ App ~ data:", data)
+
+
+
+
+
 
 
 
@@ -55,7 +61,7 @@ function App() {
       <div className="container">
 
         <MainPage
-          todo={data}
+          todo={datas}
 
         />
 
